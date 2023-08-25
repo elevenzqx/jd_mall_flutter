@@ -1,6 +1,7 @@
 # 前言
 
-高仿京东商城flutter版本，个人学习flutter项目
+> 高仿京东商城flutter版本，个人学习flutter项目，从 GuoguoDad/jd_mall_flutter fork 过来的仓库，用于学习 flutter 参考使用
+> 这里会有个人调试时，做一些加减法，不是一个很好的 demo 项目, 如有使用需要，请参考原仓 `GuoguoDad/jd_mall_flutter`
 
 1. 使用flutter_redux状态管理
 2. 网络使用dio进行封装
