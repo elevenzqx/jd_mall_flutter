@@ -4,7 +4,7 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 
 // Package imports:
-import 'package:extended_scroll/extended_scroll.dart';
+// import 'package:extended_scroll/extended_scroll.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
@@ -34,7 +34,8 @@ class DetailPage extends StatefulWidget {
 }
 
 class _DetailPageState extends State<DetailPage> {
-  late final ExtendedScrollController _scrollController;
+  late final ScrollController _scrollController;
+  // late final ExtendedScrollController _scrollController;
   late final RefreshController _refreshController;
 
   //是否是floatingHeader中的tab点击
@@ -52,7 +53,8 @@ class _DetailPageState extends State<DetailPage> {
 
   @override
   void initState() {
-    _scrollController = ExtendedScrollController();
+    _scrollController = ScrollController();
+    // _scrollController = ExtendedScrollController();
     _refreshController = RefreshController();
     super.initState();
   }
@@ -107,7 +109,7 @@ class _DetailPageState extends State<DetailPage> {
                       () => loadMoreFail(_refreshController),
                     ));
                   },
-                  child: ExtendedCustomScrollView(
+                  child: CustomScrollView(
                     controller: _scrollController,
                     slivers: [
                       goodsInfo(context, cardKeys[0]),
@@ -165,22 +167,33 @@ class _DetailPageState extends State<DetailPage> {
 
   //根据index滚动页面至相应模块位置
   void scroll2PositionByTabIndex(int index) {
-    RenderSliverToBoxAdapter? keyRenderObject = cardKeys[index].currentContext?.findAncestorRenderObjectOfType<RenderSliverToBoxAdapter>();
+    RenderSliverToBoxAdapter? keyRenderObject = cardKeys[index]
+        .currentContext
+        ?.findAncestorRenderObjectOfType<RenderSliverToBoxAdapter>();
     if (keyRenderObject != null) {
+      // _scrollController.position
+      //     .ensureVisible(keyRenderObject, offsetTop: 42 + getStatusHeight(context), duration: const Duration(milliseconds: 300), curve: Curves.linear)
+      //     .then((value) => isTabClicked = false);
       _scrollController.position
-          .ensureVisible(keyRenderObject, offsetTop: 42 + getStatusHeight(context), duration: const Duration(milliseconds: 300), curve: Curves.linear)
+          .ensureVisible(keyRenderObject,
+              duration: const Duration(milliseconds: 300), curve: Curves.linear)
           .then((value) => isTabClicked = false);
     }
   }
 
   //找到当前页面第一个可见的item的索引
-  int findFirstVisibleItemIndex(List<GlobalKey<State<StatefulWidget>>> cardKeys, BuildContext context) {
+  int findFirstVisibleItemIndex(
+      List<GlobalKey<State<StatefulWidget>>> cardKeys, BuildContext context) {
     int i = 0;
     for (; i < cardKeys.length; i++) {
-      RenderSliverToBoxAdapter? keyRenderObject = cardKeys[i].currentContext?.findAncestorRenderObjectOfType<RenderSliverToBoxAdapter>();
+      RenderSliverToBoxAdapter? keyRenderObject = cardKeys[i]
+          .currentContext
+          ?.findAncestorRenderObjectOfType<RenderSliverToBoxAdapter>();
       if (keyRenderObject != null) {
         //距离CustomScrollView顶部距离， 上滚出可视区域变为0
-        final dy = (keyRenderObject.parentData as SliverPhysicalParentData).paintOffset.dy;
+        final dy = (keyRenderObject.parentData as SliverPhysicalParentData)
+            .paintOffset
+            .dy;
         if (dy > 42 + getStatusHeight(context)) {
           break;
         }

@@ -2,14 +2,16 @@
 import 'package:flutter/material.dart';
 
 // Package imports:
-import 'package:extended_scroll/extended_scroll.dart';
+// import 'package:extended_scroll/extended_scroll.dart';
 
 // Project imports:
 import 'package:jd_mall_flutter/common/util/screen_util.dart';
 import 'package:jd_mall_flutter/component/image/asset_image.dart';
 
 class BackToTop extends StatefulWidget {
-  final ExtendedScrollController controller;
+  // final ExtendedScrollController controller;
+
+  final ScrollController controller;
 
   const BackToTop(this.controller, {super.key});
 
@@ -46,7 +48,9 @@ class _BackToTopState extends State<BackToTop> {
         width: 48,
         height: 48,
         child: FloatingActionButton(
-          onPressed: () => widget.controller.animateTo(0, duration: const Duration(milliseconds: 500), curve: Curves.linear),
+          onPressed: () => widget.controller.animateTo(0,
+              duration: const Duration(milliseconds: 500),
+              curve: Curves.linear),
           backgroundColor: Colors.white,
           child: assetImage('images/ic_back_top.png', 28, 28),
         ),
